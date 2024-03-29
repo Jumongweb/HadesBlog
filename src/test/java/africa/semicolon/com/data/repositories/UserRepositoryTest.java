@@ -23,4 +23,16 @@ public class UserRepositoryTest {
         assertThat(userRepository.count(), is(1L));
     }
 
+    @Test
+    public void testSaveThreeUserRepositoryCountIs3(){
+        userRepository.deleteAll();
+        User user1 = new User();
+        User user2 = new User();
+        User user3 = new User();
+        userRepository.save(user1);
+        userRepository.save(user2);
+        userRepository.save(user3);
+        assertThat(userRepository.count(), is(3L));
+    }
+
 }
