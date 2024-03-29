@@ -1,7 +1,9 @@
 package africa.semicolon.com.services;
 
+import africa.semicolon.com.data.models.User;
 import africa.semicolon.com.data.repositories.UserRepository;
 import africa.semicolon.com.dtos.request.UserRegisterRequest;
+import africa.semicolon.com.exceptions.UserNotFoundException;
 import africa.semicolon.com.exceptions.UsernameExistException;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,6 +40,18 @@ public class UserServiceImplTest {
         userService.register(userRegisterRequest);
         assertEquals(1, userService.countUser());
     }
+
+    @Test
+    public void UserServiceThrowExceptionIfUserWithSameUsernameIsSaved(){
+        UserRegisterRequest userRegisterRequest = new UserRegisterRequest();
+        userRegisterRequest.setFirstname("firstname");
+        userRegisterRequest.setLastname("lastname");
+        userRegisterRequest.setUsername("username");
+        userRegisterRequest.setPassword("password");
+        userService.register(userRegisterRequest);
+        assertThrows(UsernameExistException.class, ()->userService.register(userRegisterRequest));
+        assertEquals(1, userService.countUser());
+    }
     @Test
     public void testUserServiceCreate3UserServiceCountIsThree(){
         UserRegisterRequest userRegisterRequest = new UserRegisterRequest();
@@ -72,18 +86,34 @@ public class UserServiceImplTest {
         userRegisterRequest.setPassword("password");
         userService.register(userRegisterRequest);
         assertEquals(1, userService.countUser());
+        User foundUser = userService.findUserBy("username");
+        assertEquals(foundUser.getUsername(), "username");
     }
+
     @Test
-    public void UserServiceThrowExceptionIfUserWithSameUsernameIsSaved(){
+    public void testFindUserThatDoesNotExistUserServiceThrowException(){
         UserRegisterRequest userRegisterRequest = new UserRegisterRequest();
         userRegisterRequest.setFirstname("firstname");
         userRegisterRequest.setLastname("lastname");
         userRegisterRequest.setUsername("username");
         userRegisterRequest.setPassword("password");
         userService.register(userRegisterRequest);
-        
-        assertThrows(UsernameExistException.class, ()->userService.register(userRegisterRequest));
         assertEquals(1, userService.countUser());
+        User foundUser = userService.findUserBy("username");
+        assertThrows(UserNotFoundException.class, ()->userService.findUserBy("wrongUsername"));
+    }
+
+    @Test
+    public void testThatUserServiceCanDeleteUser(){
+        UserRegisterRequest userRegisterRequest = new UserRegisterRequest();
+        userRegisterRequest.setFirstname("firstname");
+        userRegisterRequest.setLastname("lastname");
+        userRegisterRequest.setUsername("username");
+        userRegisterRequest.setPassword("password");
+        userService.register(userRegisterRequest);
+        assertEquals(1, userService.countUser());
+        userService.deleteUserBy("username");
+        assertEquals(0, userService.countUser());
     }
 
 }
