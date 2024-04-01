@@ -2,6 +2,8 @@ package africa.semicolon.com.services;
 
 import africa.semicolon.com.data.models.User;
 import africa.semicolon.com.data.repositories.UserRepository;
+import africa.semicolon.com.dtos.request.DeleteUserRequest;
+import africa.semicolon.com.dtos.request.LoginRequest;
 import africa.semicolon.com.dtos.request.UserRegisterRequest;
 import africa.semicolon.com.exceptions.UserNotFoundException;
 import africa.semicolon.com.exceptions.UsernameExistException;
@@ -27,6 +29,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void login(LoginRequest loginRequest) {
+
+    }
+
+    @Override
     public long countUser() {
         return userRepository.count();
     }
@@ -39,9 +46,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUserBy(String username) {
-        User deletedUser = findUserBy(username);
-
+    public void deleteUserBy(DeleteUserRequest deleteUserRequest) {
+        User deletedUser = findUserBy(deleteUserRequest.getUsername());
+        if (deletedUser == null){
+            throw new UserNotFoundException("User does not exist");
+        }
+        userRepository.delete(deletedUser);
     }
 
 
