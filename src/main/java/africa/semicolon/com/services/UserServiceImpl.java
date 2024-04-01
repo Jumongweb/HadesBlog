@@ -5,6 +5,7 @@ import africa.semicolon.com.data.repositories.UserRepository;
 import africa.semicolon.com.dtos.request.DeleteUserRequest;
 import africa.semicolon.com.dtos.request.LoginRequest;
 import africa.semicolon.com.dtos.request.UserRegisterRequest;
+import africa.semicolon.com.dtos.response.RegisterRequestResponse;
 import africa.semicolon.com.exceptions.UserNotFoundException;
 import africa.semicolon.com.exceptions.UsernameExistException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +23,12 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void register(UserRegisterRequest userRegisterRequest) {
+    public RegisterRequestResponse register(UserRegisterRequest userRegisterRequest) {
         validate(userRegisterRequest.getUsername());
         User savedUser = map(userRegisterRequest);
+        RegisterRequestResponse response = map(savedUser);
         userRepository.save(savedUser);
+        return response;
     }
 
     @Override

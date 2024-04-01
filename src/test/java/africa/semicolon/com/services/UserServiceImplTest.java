@@ -76,10 +76,10 @@ public class UserServiceImplTest {
         assertEquals(3, userService.countUser());
     }
 
-    @Test
-    public void testThatBlogAppIsLockedByDefault_LoginInAndItUnlock(){
+    //@Test
+    //public void testThatBlogAppIsLockedByDefault_LoginInAndItUnlock(){
 
-    }
+    //}
 
 
     @Test

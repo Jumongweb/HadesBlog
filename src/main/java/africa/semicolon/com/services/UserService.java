@@ -4,11 +4,12 @@ import africa.semicolon.com.data.models.User;
 import africa.semicolon.com.dtos.request.DeleteUserRequest;
 import africa.semicolon.com.dtos.request.LoginRequest;
 import africa.semicolon.com.dtos.request.UserRegisterRequest;
+import africa.semicolon.com.dtos.response.RegisterRequestResponse;
 import org.springframework.stereotype.Service;
 
 
 public interface UserService {
-    void register(UserRegisterRequest userRegisterRequest);
+    RegisterRequestResponse register(UserRegisterRequest userRegisterRequest);
 
     void login(LoginRequest loginRequest);
 
