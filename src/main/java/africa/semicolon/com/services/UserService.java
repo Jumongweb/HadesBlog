@@ -7,6 +7,8 @@ import africa.semicolon.com.dtos.request.UserRegisterRequest;
 import africa.semicolon.com.dtos.response.RegisterRequestResponse;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 public interface UserService {
     RegisterRequestResponse register(UserRegisterRequest userRegisterRequest);
@@ -17,5 +19,10 @@ public interface UserService {
 
     User findUserBy(String username);
 
+    List<User> findAll();
     void deleteUserBy(DeleteUserRequest deleteUserRequest);
+
+    boolean isLoggedIn(String username);
+
+    
 }

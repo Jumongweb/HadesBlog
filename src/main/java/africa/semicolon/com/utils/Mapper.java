@@ -4,6 +4,8 @@ import africa.semicolon.com.data.models.User;
 import africa.semicolon.com.dtos.request.UserRegisterRequest;
 import africa.semicolon.com.dtos.response.RegisterRequestResponse;
 
+import java.time.format.DateTimeFormatter;
+
 public class Mapper {
     public static User map(UserRegisterRequest userRegisterRequest){
         User user = new User();
@@ -11,6 +13,7 @@ public class Mapper {
         user.setLastname(userRegisterRequest.getLastname());
         user.setUsername(userRegisterRequest.getUsername());
         user.setPassword(userRegisterRequest.getPassword());
+        user.setLocked(true);
         return user;
     }
 
@@ -18,7 +21,7 @@ public class Mapper {
         RegisterRequestResponse registerRequestResponse = new RegisterRequestResponse();
         registerRequestResponse.setId(user.getId());
         registerRequestResponse.setUsername(user.getUsername());
-        registerRequestResponse.setDataRegistered(registerRequestResponse.getDataRegistered());
+        registerRequestResponse.setDataRegistered(DateTimeFormatter.ofPattern("dd-MM-yyyy, hh:mm:ss").format(user.getDateCreated()));
         return registerRequestResponse;
     }
 }

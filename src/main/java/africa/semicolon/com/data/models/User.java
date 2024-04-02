@@ -18,4 +18,6 @@ public class User {
     private String username;
     private String password;
     private List<Post> post;
+    private LocalDateTime dateCreated = LocalDateTime.now();
+    private boolean isLocked;
 }

@@ -5,6 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="43c155a1-fdee-4aaf-b86f-372745c0701d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/africa/semicolon/com/exceptions/InvalidPasswordException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/africa/semicolon/com/exceptions/LoggedInException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/africa/semicolon/com/data/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/africa/semicolon/com/data/models/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/africa/semicolon/com/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/africa/semicolon/com/services/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/africa/semicolon/com/services/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/africa/semicolon/com/services/UserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/africa/semicolon/com/utils/Mapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/africa/semicolon/com/utils/Mapper.java" afterDir="false" />
@@ -63,8 +67,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
-      <recent name="africa.semicolon.com.dtos.request" />
       <recent name="africa.semicolon.com.exceptions" />
+      <recent name="africa.semicolon.com.dtos.request" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -90,22 +94,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserServiceImplTest.UserServiceCanCreateUserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="HadesBlog" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="africa.semicolon.com.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="africa.semicolon.com.services" />
-      <option name="MAIN_CLASS_NAME" value="africa.semicolon.com.services.UserServiceImplTest" />
-      <option name="METHOD_NAME" value="UserServiceCanCreateUserTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="UserServiceImplTest.UserServiceThrowExceptionIfUserWithSameUsernameIsSaved" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="HadesBlog" />
       <extension name="coverage">
@@ -117,6 +105,22 @@
       <option name="PACKAGE_NAME" value="africa.semicolon.com.services" />
       <option name="MAIN_CLASS_NAME" value="africa.semicolon.com.services.UserServiceImplTest" />
       <option name="METHOD_NAME" value="UserServiceThrowExceptionIfUserWithSameUsernameIsSaved" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserServiceImplTest.testThatUserCanLogIn" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="HadesBlog" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="africa.semicolon.com.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="africa.semicolon.com.services" />
+      <option name="MAIN_CLASS_NAME" value="africa.semicolon.com.services.UserServiceImplTest" />
+      <option name="METHOD_NAME" value="testThatUserCanLogIn" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -138,7 +142,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserServiceImplTest.testUserServiceCreate3UserServiceCountIsThree" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserServiceImplTest.testUserServiceCanFindAllUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="HadesBlog" />
       <extension name="coverage">
         <pattern>
@@ -148,7 +152,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="africa.semicolon.com.services" />
       <option name="MAIN_CLASS_NAME" value="africa.semicolon.com.services.UserServiceImplTest" />
-      <option name="METHOD_NAME" value="testUserServiceCreate3UserServiceCountIsThree" />
+      <option name="METHOD_NAME" value="testUserServiceCanFindAllUser" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -157,10 +161,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.UserServiceImplTest2" />
+        <item itemvalue="JUnit.UserServiceImplTest.testThatUserCanLogIn" />
+        <item itemvalue="JUnit.UserServiceImplTest.testUserServiceCanFindAllUser" />
         <item itemvalue="JUnit.UserServiceImplTest.testThatUserServiceCanFindUser" />
         <item itemvalue="JUnit.UserServiceImplTest.UserServiceThrowExceptionIfUserWithSameUsernameIsSaved" />
-        <item itemvalue="JUnit.UserServiceImplTest.testUserServiceCreate3UserServiceCountIsThree" />
-        <item itemvalue="JUnit.UserServiceImplTest.UserServiceCanCreateUserTest" />
       </list>
     </recent_temporary>
   </component>
@@ -174,7 +178,7 @@
       <updated>1711644178330</updated>
       <workItem from="1711644179393" duration="102000" />
       <workItem from="1711644313934" duration="2146000" />
-      <workItem from="1711696979886" duration="31449000" />
+      <workItem from="1711696979886" duration="42478000" />
     </task>
     <servers />
   </component>
