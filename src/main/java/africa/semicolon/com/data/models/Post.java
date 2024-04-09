@@ -16,6 +16,7 @@ public class Post {
     private String id;
     private String title;
     private String content;
+    private String user;
     @DBRef
     private List<Comment> comments;
     @DBRef

@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -16,7 +17,7 @@ public class User {
     private String lastname;
     private String username;
     private String password;
-    private List<Post> post;
+    private List<Post> posts = new ArrayList<>();
     private LocalDateTime dateCreated = LocalDateTime.now();
     private boolean isLoggedIn;
 }

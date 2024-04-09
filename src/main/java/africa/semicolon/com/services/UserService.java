@@ -1,12 +1,14 @@
 package africa.semicolon.com.services;
 
+import africa.semicolon.com.data.models.Post;
 import africa.semicolon.com.data.models.User;
 import africa.semicolon.com.dtos.request.DeleteUserRequest;
 import africa.semicolon.com.dtos.request.LoginRequest;
+import africa.semicolon.com.dtos.request.PostRequest;
 import africa.semicolon.com.dtos.request.UserRegisterRequest;
+import africa.semicolon.com.dtos.response.CreatePostResponse;
 import africa.semicolon.com.dtos.response.LogoutRequest;
 import africa.semicolon.com.dtos.response.RegisterRequestResponse;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -18,7 +20,7 @@ public interface UserService {
 
     long countUser();
 
-    User findUserBy(String username);
+    User findUserByUsername(String username);
 
     List<User> findAll();
     void deleteUserBy(DeleteUserRequest deleteUserRequest);
@@ -27,4 +29,8 @@ public interface UserService {
 
 
     void logout(LogoutRequest logoutRequest);
+
+    CreatePostResponse createPost(PostRequest postRequest);
+
+    Post findAllPostBelongingTo(String username);
 }
