@@ -13,7 +13,6 @@ public class Mapper {
         user.setLastname(userRegisterRequest.getLastname());
         user.setUsername(userRegisterRequest.getUsername());
         user.setPassword(userRegisterRequest.getPassword());
-        user.setLocked(true);
         return user;
     }
 

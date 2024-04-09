@@ -6,6 +6,7 @@ import africa.semicolon.com.dtos.request.DeleteUserRequest;
 import africa.semicolon.com.dtos.request.LoginRequest;
 import africa.semicolon.com.dtos.request.PostRequest;
 import africa.semicolon.com.dtos.request.UserRegisterRequest;
+import africa.semicolon.com.dtos.response.LogoutRequest;
 import africa.semicolon.com.exceptions.InvalidPasswordException;
 import africa.semicolon.com.exceptions.UserNotFoundException;
 import africa.semicolon.com.exceptions.UsernameExistException;
@@ -81,11 +82,6 @@ public class UserServiceImplTest {
         userService.register(userRegisterRequest3);
         assertEquals(3, userService.countUser());
     }
-
-    //@Test
-    //public void testThatBlogAppIsLockedByDefault_LoginInAndItUnlock(){
-
-    //}
 
 
     @Test
@@ -188,12 +184,44 @@ public class UserServiceImplTest {
         userRegisterRequest.setUsername("username");
         userRegisterRequest.setPassword("password");
         userService.register(userRegisterRequest);
-        assertTrue(userService.isLoggedIn("username"));
+        assertEquals(1, userService.countUser());
+        assertFalse(userService.isLoggedIn("username"));
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setUsername("username");
         loginRequest.setPassword("password");
         userService.login(loginRequest);
-        assertFalse(userService.isLoggedIn("username"));
+        assertEquals(1, userService.countUser());
+        assertTrue(userService.isLoggedIn("username"));
+    }
+
+    @Test
+    public void testThatUserServiceCanLoginTwoUsers(){
+        UserRegisterRequest userRegisterRequest1 = new UserRegisterRequest();
+        UserRegisterRequest userRegisterRequest2 = new UserRegisterRequest();
+        userRegisterRequest1.setFirstname("firstname1");
+        userRegisterRequest1.setLastname("lastname1");
+        userRegisterRequest1.setUsername("username1");
+        userRegisterRequest1.setPassword("password1");
+        userService.register(userRegisterRequest1);
+        userRegisterRequest2.setFirstname("firstname2");
+        userRegisterRequest2.setLastname("lastname2");
+        userRegisterRequest2.setUsername("username2");
+        userRegisterRequest2.setPassword("password2");
+        userService.register(userRegisterRequest2);
+        assertEquals(2, userService.countUser());
+        assertFalse(userService.isLoggedIn("username1"));
+        assertFalse(userService.isLoggedIn("username2"));
+        LoginRequest loginRequest1 = new LoginRequest();
+        LoginRequest loginRequest2 = new LoginRequest();
+        loginRequest1.setUsername("username1");
+        loginRequest2.setUsername("username2");
+        loginRequest1.setPassword("password1");
+        loginRequest2.setPassword("password2");
+        userService.login(loginRequest1);
+        userService.login(loginRequest2);
+        assertEquals(2, userService.countUser());
+        assertTrue(userService.isLoggedIn("username1"));
+        assertTrue(userService.isLoggedIn("username2"));
     }
 
     @Test
@@ -226,21 +254,73 @@ public class UserServiceImplTest {
 
     @Test
     public void testThatUserCanCreatePostWhileLoggedIn(){
+        UserRegisterRequest userRegisterRequest1 = new UserRegisterRequest();
+        UserRegisterRequest userRegisterRequest2 = new UserRegisterRequest();
+        userRegisterRequest1.setFirstname("firstname1");
+        userRegisterRequest1.setLastname("lastname1");
+        userRegisterRequest1.setUsername("username1");
+        userRegisterRequest1.setPassword("password1");
+        userRegisterRequest2.setFirstname("firstname2");
+        userRegisterRequest2.setLastname("lastname2");
+        userRegisterRequest2.setUsername("username2");
+        userRegisterRequest2.setPassword("password2");
+        userService.register(userRegisterRequest1);
+        userService.register(userRegisterRequest2);
+        assertFalse(userService.isLoggedIn("username1"));
+        assertFalse(userService.isLoggedIn("username2"));
+        LoginRequest loginRequest1 = new LoginRequest();
+        LoginRequest loginRequest2 = new LoginRequest();
+        loginRequest1.setUsername("username1");
+        loginRequest2.setUsername("username2");
+        loginRequest1.setPassword("password1");
+        loginRequest2.setPassword("password2");
+        userService.login(loginRequest1);
+        userService.login(loginRequest2);
+        assertTrue(userService.isLoggedIn("username1"));
+        assertTrue(userService.isLoggedIn("username2"));
+        PostRequest postRequest = new PostRequest();
+    }
+
+    @Test
+    public void testThatUserCanLogOut(){
         UserRegisterRequest userRegisterRequest = new UserRegisterRequest();
         userRegisterRequest.setFirstname("firstname");
         userRegisterRequest.setLastname("lastname");
         userRegisterRequest.setUsername("username");
         userRegisterRequest.setPassword("password");
         userService.register(userRegisterRequest);
-        assertTrue(userService.isLoggedIn("username"));
+        assertEquals(1, userService.countUser());
+        assertFalse(userService.isLoggedIn("username"));
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setUsername("username");
         loginRequest.setPassword("password");
         userService.login(loginRequest);
+        assertTrue(userService.isLoggedIn("username"));
+        LogoutRequest logoutRequest = new LogoutRequest();
+        logoutRequest.setUsername(loginRequest.getUsername());
+        userService.logout(logoutRequest);
         assertFalse(userService.isLoggedIn("username"));
-        PostRequest postRequest = new PostRequest();
-
     }
 
+    @Test
+    public void testThatUserCanLogInLogoutAndLoginAgain(){
+        UserRegisterRequest userRegisterRequest = new UserRegisterRequest();
+        userRegisterRequest.setFirstname("firstname");
+        userRegisterRequest.setLastname("lastname");
+        userRegisterRequest.setUsername("username");
+        userRegisterRequest.setPassword("password");
+        userService.register(userRegisterRequest);
+        assertEquals(1, userService.countUser());
+        assertFalse(userService.isLoggedIn("username"));
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setUsername("username");
+        loginRequest.setPassword("password");
+        LogoutRequest logoutRequest = new LogoutRequest();
+        logoutRequest.setUsername(loginRequest.getUsername());
+        userService.login(loginRequest);
+        assertTrue(userService.isLoggedIn("username"));
+        userService.logout(logoutRequest);
+        assertFalse(userService.isLoggedIn("username"));
+    }
 
 }

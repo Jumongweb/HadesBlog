@@ -2,7 +2,6 @@ package africa.semicolon.com.data.models;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
@@ -19,5 +18,5 @@ public class User {
     private String password;
     private List<Post> post;
     private LocalDateTime dateCreated = LocalDateTime.now();
-    private boolean isLocked;
+    private boolean isLoggedIn;
 }

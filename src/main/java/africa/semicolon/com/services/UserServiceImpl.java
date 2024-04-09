@@ -5,6 +5,7 @@ import africa.semicolon.com.data.repositories.UserRepository;
 import africa.semicolon.com.dtos.request.DeleteUserRequest;
 import africa.semicolon.com.dtos.request.LoginRequest;
 import africa.semicolon.com.dtos.request.UserRegisterRequest;
+import africa.semicolon.com.dtos.response.LogoutRequest;
 import africa.semicolon.com.dtos.response.RegisterRequestResponse;
 import africa.semicolon.com.exceptions.InvalidPasswordException;
 import africa.semicolon.com.exceptions.LoggedInException;
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserService {
         isValidUser(loginRequest.getUsername(), loginRequest.getPassword());
         for (User user : userRepository.findAll()) {
             if (user.getUsername().equals(loginRequest.getUsername())) {
-                user.setLocked(false);
+                user.setLoggedIn(true);
                 userRepository.save(user);
             }
         }
@@ -57,7 +58,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserBy(String username) {
-        User foundUser = userRepository.findUserByUsername(username);
+        var foundUser = userRepository.findUserByUsername(username);
         if (foundUser == null) throw new UserNotFoundException("User does not exist");
         return foundUser;
     }
@@ -79,18 +80,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isLoggedIn(String username) {
         User user = userRepository.findUserByUsername(username);
-        return user.isLocked();
+        return user.isLoggedIn();
+    }
+
+    @Override
+    public void logout(LogoutRequest logoutRequest) {
+        var user = findUserBy(logoutRequest.getUsername());
+        if (user == null) throw new UserNotFoundException("user not found");
+        user.setLoggedIn(false);
+        userRepository.save(user);
     }
 
     public void isLocked(String username) {
         for (User user : userRepository.findAll()) {
-            if (user.isLocked()) throw new LoggedInException("You need to login to perform this action");
+            if (user.isLoggedIn()) throw new LoggedInException("You need to login to perform this action");
         }
     }
 
     public boolean getLockedStatus(String username){
         User user = findUserBy(username);
-        return user.isLocked();
+        return user.isLoggedIn();
     }
 
     public void validate (String username){
